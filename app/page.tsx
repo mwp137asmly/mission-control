@@ -33,7 +33,7 @@ const item = {
     opacity: 1,
     y: 0,
     transition: {
-      type: "spring",
+      type: "spring" as const,
       stiffness: 300,
       damping: 24,
     },
@@ -45,9 +45,9 @@ export default function HomePage() {
   const tasks = useQuery(api.tasks.list);
   const contentDrafts = useQuery(api.content.list);
 
-  const activeTasks = tasks?.filter((t) => t.status !== "completed").length || 0;
-  const completedTasks = tasks?.filter((t) => t.status === "completed").length || 0;
-  const draftContent = contentDrafts?.filter((c) => c.status === "draft").length || 0;
+  const activeTasks = tasks?.filter((t: any) => t.status !== "completed").length || 0;
+  const completedTasks = tasks?.filter((t: any) => t.status === "completed").length || 0;
+  const draftContent = contentDrafts?.filter((c: any) => c.status === "draft").length || 0;
 
   return (
     <motion.div
@@ -119,7 +119,7 @@ export default function HomePage() {
                   <Skeleton className="h-16 w-full" />
                 </>
               ) : (
-                activities.map((activity, idx) => (
+                activities.map((activity: any, idx: number) => (
                   <motion.div
                     key={activity._id}
                     initial={{ opacity: 0, x: -20 }}

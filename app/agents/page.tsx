@@ -1,11 +1,14 @@
 "use client";
 
+export const dynamic = 'force-dynamic';
+
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { TabBar } from "@/components/tab-bar";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Bot, Cpu, Zap, Activity, Brain } from "lucide-react";
+import { Suspense } from "react";
 
 const tabs = [
   { id: "agents", label: "Agents" },
@@ -72,7 +75,7 @@ const mockModels = [
   },
 ];
 
-export default function AgentsPage() {
+function AgentsContent() {
   const searchParams = useSearchParams();
   const activeTab = searchParams.get("tab") || "agents";
 
@@ -218,4 +221,12 @@ function getRelativeTime(date: Date): string {
   if (hours < 24) return `${hours}h ago`;
   const days = Math.floor(hours / 24);
   return `${days}d ago`;
+}
+
+export default function AgentsPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AgentsContent />
+    </Suspense>
+  );
 }

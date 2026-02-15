@@ -5,7 +5,7 @@ export const list = query({
   args: {
     limit: v.optional(v.number()),
   },
-  handler: async (ctx, args) => {
+  handler: async (ctx: any, args: any) => {
     const limit = args.limit ?? 50;
     return await ctx.db
       .query("activities")
@@ -22,7 +22,7 @@ export const create = mutation({
     agentId: v.optional(v.string()),
     metadata: v.optional(v.any()),
   },
-  handler: async (ctx, args) => {
+  handler: async (ctx: any, args: any) => {
     return await ctx.db.insert("activities", {
       ...args,
       timestamp: Date.now(),

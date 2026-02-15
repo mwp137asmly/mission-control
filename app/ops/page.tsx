@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = 'force-dynamic';
+
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { TabBar } from "@/components/tab-bar";
@@ -67,7 +69,7 @@ function OperationsView() {
                 ))}
               </>
             ) : (
-              activities.map((activity) => (
+              activities.map((activity: any) => (
                 <div
                   key={activity._id}
                   className="p-4 rounded-lg bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.04] transition-colors"
@@ -114,10 +116,10 @@ function TasksView() {
   const tasks = useQuery(api.tasks.list);
 
   const tasksByStatus = {
-    todo: tasks?.filter((t) => t.status === "todo") || [],
-    in_progress: tasks?.filter((t) => t.status === "in_progress") || [],
-    completed: tasks?.filter((t) => t.status === "completed") || [],
-    blocked: tasks?.filter((t) => t.status === "blocked") || [],
+    todo: tasks?.filter((t: any) => t.status === "todo") || [],
+    in_progress: tasks?.filter((t: any) => t.status === "in_progress") || [],
+    completed: tasks?.filter((t: any) => t.status === "completed") || [],
+    blocked: tasks?.filter((t: any) => t.status === "blocked") || [],
   };
 
   return (
@@ -224,7 +226,7 @@ function CalendarView() {
                 ))}
               </>
             ) : (
-              events.map((event) => (
+              events.map((event: any) => (
                 <div
                   key={event._id}
                   className="p-4 rounded-lg bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.04] transition-colors"

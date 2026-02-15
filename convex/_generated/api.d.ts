@@ -22,7 +22,7 @@ import type {
  * const myFunctionReference = api.myModule.myFunction;
  * ```
  */
-declare const fullApi: ApiFromModules<{
+declare const fullApi: {
   activities: {
     list: FunctionReference<"query", "public", { limit?: number }, any>;
     create: FunctionReference<"mutation", "public", any, any>;
@@ -52,12 +52,6 @@ declare const fullApi: ApiFromModules<{
     create: FunctionReference<"mutation", "public", any, any>;
     update: FunctionReference<"mutation", "public", any, any>;
   };
-}>;
-export declare const api: FilterApi<
-  typeof fullApi,
-  FunctionReference<any, "public">
->;
-export declare const internal: FilterApi<
-  typeof fullApi,
-  FunctionReference<any, "internal">
->;
+};
+export declare const api: typeof fullApi;
+export declare const internal: typeof fullApi;

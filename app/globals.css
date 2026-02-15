@@ -123,10 +123,6 @@
     @apply bg-background text-foreground antialiased;
   }
   
-  html {
-    @apply dark;
-  }
-  
   /* Custom scrollbar */
   ::-webkit-scrollbar {
     @apply w-2 h-2;

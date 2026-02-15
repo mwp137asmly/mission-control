@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = 'force-dynamic';
+
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { TabBar } from "@/components/tab-bar";
@@ -114,7 +116,7 @@ function EcosystemView() {
           ))}
         </>
       ) : (
-        products.map((product, idx) => (
+        products.map((product: any, idx: number) => (
           <motion.div
             key={product._id}
             initial={{ opacity: 0, scale: 0.9 }}
@@ -178,7 +180,7 @@ function EcosystemView() {
 
                 {product.features && product.features.length > 0 && (
                   <div className="flex flex-wrap gap-1">
-                    {product.features.slice(0, 3).map((feature) => (
+                    {product.features.slice(0, 3).map((feature: string) => (
                       <span
                         key={feature}
                         className="px-2 py-1 rounded bg-white/[0.05] text-xs"

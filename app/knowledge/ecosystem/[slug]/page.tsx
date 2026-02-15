@@ -121,7 +121,7 @@ export default function EcosystemDetailPage() {
                 Features
               </h2>
               <ul className="space-y-2">
-                {product.features.map((feature) => (
+                {product.features.map((feature: string) => (
                   <li
                     key={feature}
                     className="flex items-start gap-2 text-white/60"
@@ -138,7 +138,7 @@ export default function EcosystemDetailPage() {
             <div>
               <h2 className="text-xl font-semibold mb-4">Integrations</h2>
               <div className="flex flex-wrap gap-2">
-                {product.integrations.map((integration) => (
+                {product.integrations.map((integration: string) => (
                   <Badge key={integration} variant="outline" className="bg-white/5">
                     {integration}
                   </Badge>

@@ -1,5 +1,7 @@
 "use client";
 
+export const dynamic = 'force-dynamic';
+
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { TabBar } from "@/components/tab-bar";
@@ -140,7 +142,7 @@ function CRMView() {
           ))}
         </>
       ) : (
-        contacts.map((contact, idx) => (
+        contacts.map((contact: any, idx: number) => (
           <motion.div
             key={contact._id}
             initial={{ opacity: 0, scale: 0.9 }}
@@ -196,7 +198,7 @@ function CRMView() {
 
               {contact.tags && contact.tags.length > 0 && (
                 <div className="flex flex-wrap gap-1">
-                  {contact.tags.map((tag) => (
+                  {contact.tags.map((tag: string) => (
                     <span
                       key={tag}
                       className="px-2 py-1 rounded bg-white/[0.05] text-xs flex items-center gap-1"

@@ -3,7 +3,7 @@ import { v } from "convex/values";
 
 export const list = query({
   args: {},
-  handler: async (ctx) => {
+  handler: async (ctx: any) => {
     return await ctx.db.query("contentDrafts").order("desc").collect();
   },
 });
@@ -12,10 +12,10 @@ export const byStatus = query({
   args: {
     status: v.string(),
   },
-  handler: async (ctx, args) => {
+  handler: async (ctx: any, args: any) => {
     return await ctx.db
       .query("contentDrafts")
-      .filter((q) => q.eq(q.field("status"), args.status))
+      .filter((q: any) => q.eq(q.field("status"), args.status))
       .collect();
   },
 });
@@ -30,7 +30,7 @@ export const create = mutation({
     scheduledFor: v.optional(v.number()),
     tags: v.optional(v.array(v.string())),
   },
-  handler: async (ctx, args) => {
+  handler: async (ctx: any, args: any) => {
     const now = Date.now();
     return await ctx.db.insert("contentDrafts", {
       ...args,
@@ -45,7 +45,7 @@ export const updateStatus = mutation({
     id: v.id("contentDrafts"),
     status: v.string(),
   },
-  handler: async (ctx, args) => {
+  handler: async (ctx: any, args: any) => {
     await ctx.db.patch(args.id, {
       status: args.status,
       updatedAt: Date.now(),

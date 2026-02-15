@@ -12,10 +12,10 @@ export default function ContentPage() {
   const contentDrafts = useQuery(api.content.list);
 
   const draftsByStatus = {
-    draft: contentDrafts?.filter((c) => c.status === "draft") || [],
-    review: contentDrafts?.filter((c) => c.status === "review") || [],
-    scheduled: contentDrafts?.filter((c) => c.status === "scheduled") || [],
-    published: contentDrafts?.filter((c) => c.status === "published") || [],
+    draft: contentDrafts?.filter((c: any) => c.status === "draft") || [],
+    review: contentDrafts?.filter((c: any) => c.status === "review") || [],
+    scheduled: contentDrafts?.filter((c: any) => c.status === "scheduled") || [],
+    published: contentDrafts?.filter((c: any) => c.status === "published") || [],
   };
 
   return (

@@ -3,7 +3,7 @@ import { v } from "convex/values";
 
 export const list = query({
   args: {},
-  handler: async (ctx) => {
+  handler: async (ctx: any) => {
     return await ctx.db.query("tasks").order("desc").collect();
   },
 });
@@ -18,7 +18,7 @@ export const create = mutation({
     dueDate: v.optional(v.number()),
     tags: v.optional(v.array(v.string())),
   },
-  handler: async (ctx, args) => {
+  handler: async (ctx: any, args: any) => {
     const now = Date.now();
     return await ctx.db.insert("tasks", {
       ...args,
@@ -36,7 +36,7 @@ export const update = mutation({
     assignee: v.optional(v.string()),
     dueDate: v.optional(v.number()),
   },
-  handler: async (ctx, args) => {
+  handler: async (ctx: any, args: any) => {
     const { id, ...updates } = args;
     await ctx.db.patch(id, {
       ...updates,

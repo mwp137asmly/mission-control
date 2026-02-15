@@ -2,7 +2,7 @@ import { mutation } from "./_generated/server";
 
 export const seedData = mutation({
   args: {},
-  handler: async (ctx) => {
+  handler: async (ctx: any) => {
     // Clear existing data
     const tables = ["activities", "calendarEvents", "tasks", "contacts", "contentDrafts", "ecosystemProducts"];
     for (const table of tables) {
