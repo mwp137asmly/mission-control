@@ -2,6 +2,7 @@
 
 export const dynamic = 'force-dynamic';
 
+import { Suspense } from "react";
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { TabBar } from "@/components/tab-bar";
@@ -41,7 +42,7 @@ const mockKnowledge = [
   },
 ];
 
-export default function KnowledgePage() {
+function KnowledgePageContent() {
   const searchParams = useSearchParams();
   const activeTab = searchParams.get("tab") || "knowledge";
 
@@ -66,6 +67,14 @@ export default function KnowledgePage() {
         {activeTab === "ecosystem" && <EcosystemView />}
       </motion.div>
     </div>
+  );
+}
+
+export default function KnowledgePage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <KnowledgePageContent />
+    </Suspense>
   );
 }
 

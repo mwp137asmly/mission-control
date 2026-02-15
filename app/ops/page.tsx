@@ -2,6 +2,7 @@
 
 export const dynamic = 'force-dynamic';
 
+import { Suspense } from "react";
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { TabBar } from "@/components/tab-bar";
@@ -23,7 +24,7 @@ const tabs = [
   { id: "calendar", label: "Calendar" },
 ];
 
-export default function OpsPage() {
+function OpsPageContent() {
   const searchParams = useSearchParams();
   const activeTab = searchParams.get("tab") || "operations";
 
@@ -49,6 +50,14 @@ export default function OpsPage() {
         {activeTab === "calendar" && <CalendarView />}
       </motion.div>
     </div>
+  );
+}
+
+export default function OpsPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <OpsPageContent />
+    </Suspense>
   );
 }
 
