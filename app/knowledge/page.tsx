@@ -5,8 +5,7 @@ export const dynamic = 'force-dynamic';
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { TabBar } from "@/components/tab-bar";
-import { useQuery } from "convex/react";
-import { api } from "@/convex/_generated/api";
+import { useEcosystemProducts } from "@/lib/supabase/hooks";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -105,7 +104,7 @@ function KnowledgeView() {
 }
 
 function EcosystemView() {
-  const products = useQuery(api.ecosystem.list);
+  const products = useEcosystemProducts();
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -116,9 +115,9 @@ function EcosystemView() {
           ))}
         </>
       ) : (
-        products.map((product: any, idx: number) => (
+        products.map((product, idx: number) => (
           <motion.div
-            key={product._id}
+            key={product.id}
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: idx * 0.05 }}

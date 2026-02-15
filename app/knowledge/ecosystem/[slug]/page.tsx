@@ -2,20 +2,18 @@
 
 import { motion } from "framer-motion";
 import { useParams, useRouter } from "next/navigation";
-import { useQuery } from "convex/react";
-import { api } from "@/convex/_generated/api";
+import { useEcosystemProduct } from "@/lib/supabase/hooks";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowLeft, ExternalLink, Github, Package, Zap } from "lucide-react";
-import Link from "next/link";
 
 export default function EcosystemDetailPage() {
   const params = useParams();
   const router = useRouter();
   const slug = params.slug as string;
 
-  const product = useQuery(api.ecosystem.bySlug, { slug });
+  const product = useEcosystemProduct(slug);
 
   if (product === undefined) {
     return (
@@ -149,7 +147,7 @@ export default function EcosystemDetailPage() {
         </div>
 
         <div className="pt-6 border-t border-white/[0.06] text-sm text-white/40">
-          Last updated: {new Date(product.lastUpdated).toLocaleDateString()}
+          Last updated: {new Date(product.last_updated).toLocaleDateString()}
         </div>
       </Card>
     </motion.div>

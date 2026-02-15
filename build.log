@@ -1,0 +1,33 @@
+
+> mission-control@0.1.0 build
+> next build
+
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /data/.openclaw/workspace/package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * /data/.openclaw/workspace/mission-control/package-lock.json
+
+▲ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 7.5s
+  Running TypeScript ...
+  Collecting page data using 1 worker ...
+  Generating static pages using 1 worker (0/11) ...
+⨯ useSearchParams() should be wrapped in a suspense boundary at page "/chat". Read more: https://nextjs.org/docs/messages/missing-suspense-with-csr-bailout
+    at Q (/data/.openclaw/workspace/mission-control/.next/server/chunks/ssr/2f884_1b4f7a48._.js:2:2111)
+    at o (/data/.openclaw/workspace/mission-control/.next/server/chunks/ssr/2f884_1b4f7a48._.js:4:5286)
+    at u (/data/.openclaw/workspace/mission-control/.next/server/chunks/ssr/mission-control_71835f41._.js:5:4354)
+    at an (/data/.openclaw/workspace/mission-control/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:84360)
+    at ai (/data/.openclaw/workspace/mission-control/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:86179)
+    at al (/data/.openclaw/workspace/mission-control/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:107953)
+    at as (/data/.openclaw/workspace/mission-control/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:105368)
+    at aa (/data/.openclaw/workspace/mission-control/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:84712)
+    at ai (/data/.openclaw/workspace/mission-control/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:86228)
+    at ai (/data/.openclaw/workspace/mission-control/node_modules/next/dist/compiled/next-server/app-page-turbo.runtime.prod.js:2:104708)
+Error occurred prerendering page "/chat". Read more: https://nextjs.org/docs/messages/prerender-error
+Export encountered an error on /chat/page: /chat, exiting the build.
+⨯ Next.js build worker exited with code: 1 and signal: null

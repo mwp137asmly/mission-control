@@ -2,6 +2,7 @@
 
 export const dynamic = 'force-dynamic';
 
+import { Suspense, useState } from "react";
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { TabBar } from "@/components/tab-bar";
@@ -10,7 +11,6 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Send, Terminal, User, Bot } from "lucide-react";
-import { useState } from "react";
 
 const tabs = [
   { id: "chat", label: "Chat" },
@@ -46,7 +46,7 @@ const mockMessages = [
   },
 ];
 
-export default function ChatPage() {
+function ChatPageContent() {
   const searchParams = useSearchParams();
   const activeTab = searchParams.get("tab") || "chat";
 
@@ -71,6 +71,14 @@ export default function ChatPage() {
         {activeTab === "command" && <CommandView />}
       </motion.div>
     </div>
+  );
+}
+
+export default function ChatPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ChatPageContent />
+    </Suspense>
   );
 }
 

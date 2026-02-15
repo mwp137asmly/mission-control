@@ -5,8 +5,7 @@ export const dynamic = 'force-dynamic';
 import { motion } from "framer-motion";
 import { useSearchParams } from "next/navigation";
 import { TabBar } from "@/components/tab-bar";
-import { useQuery } from "convex/react";
-import { api } from "@/convex/_generated/api";
+import { useActivities, useTasks, useCalendarEvents } from "@/lib/supabase/hooks";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -54,7 +53,7 @@ export default function OpsPage() {
 }
 
 function OperationsView() {
-  const activities = useQuery(api.activities.list, { limit: 20 });
+  const activities = useActivities(20);
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -69,9 +68,9 @@ function OperationsView() {
                 ))}
               </>
             ) : (
-              activities.map((activity: any) => (
+              activities.map((activity) => (
                 <div
-                  key={activity._id}
+                  key={activity.id}
                   className="p-4 rounded-lg bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.04] transition-colors"
                 >
                   <div className="flex items-start justify-between">
@@ -113,13 +112,13 @@ function OperationsView() {
 }
 
 function TasksView() {
-  const tasks = useQuery(api.tasks.list);
+  const tasks = useTasks();
 
   const tasksByStatus = {
-    todo: tasks?.filter((t: any) => t.status === "todo") || [],
-    in_progress: tasks?.filter((t: any) => t.status === "in_progress") || [],
-    completed: tasks?.filter((t: any) => t.status === "completed") || [],
-    blocked: tasks?.filter((t: any) => t.status === "blocked") || [],
+    todo: tasks?.filter((t) => t.status === "todo") || [],
+    in_progress: tasks?.filter((t) => t.status === "in_progress") || [],
+    completed: tasks?.filter((t) => t.status === "completed") || [],
+    blocked: tasks?.filter((t) => t.status === "blocked") || [],
   };
 
   return (
@@ -174,7 +173,7 @@ function TaskColumn({
       <div className="space-y-3">
         {tasks.map((task) => (
           <motion.div
-            key={task._id}
+            key={task.id}
             layout
             className="p-3 rounded-lg bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.04] transition-colors cursor-pointer"
           >
@@ -197,9 +196,9 @@ function TaskColumn({
               >
                 {task.priority}
               </Badge>
-              {task.dueDate && (
+              {task.due_date && (
                 <span className="text-xs text-white/40">
-                  {new Date(task.dueDate).toLocaleDateString()}
+                  {new Date(task.due_date).toLocaleDateString()}
                 </span>
               )}
             </div>
@@ -211,7 +210,7 @@ function TaskColumn({
 }
 
 function CalendarView() {
-  const events = useQuery(api.calendar.list);
+  const events = useCalendarEvents();
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -226,9 +225,9 @@ function CalendarView() {
                 ))}
               </>
             ) : (
-              events.map((event: any) => (
+              events.map((event) => (
                 <div
-                  key={event._id}
+                  key={event.id}
                   className="p-4 rounded-lg bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.04] transition-colors"
                 >
                   <div className="flex items-start gap-4">
@@ -244,7 +243,7 @@ function CalendarView() {
                       )}
                       <div className="flex items-center gap-4 text-xs text-white/40">
                         <span>
-                          {new Date(event.startTime).toLocaleString()}
+                          {new Date(event.start_time).toLocaleString()}
                         </span>
                         <Badge variant="outline" className="bg-white/5">
                           {event.type}

@@ -1,21 +1,20 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useQuery } from "convex/react";
-import { api } from "@/convex/_generated/api";
+import { useContentDrafts } from "@/lib/supabase/hooks";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { FileText, Calendar, User } from "lucide-react";
 
 export default function ContentPage() {
-  const contentDrafts = useQuery(api.content.list);
+  const contentDrafts = useContentDrafts();
 
   const draftsByStatus = {
-    draft: contentDrafts?.filter((c: any) => c.status === "draft") || [],
-    review: contentDrafts?.filter((c: any) => c.status === "review") || [],
-    scheduled: contentDrafts?.filter((c: any) => c.status === "scheduled") || [],
-    published: contentDrafts?.filter((c: any) => c.status === "published") || [],
+    draft: contentDrafts?.filter((c) => c.status === "draft") || [],
+    review: contentDrafts?.filter((c) => c.status === "review") || [],
+    scheduled: contentDrafts?.filter((c) => c.status === "scheduled") || [],
+    published: contentDrafts?.filter((c) => c.status === "published") || [],
   };
 
   return (
@@ -97,7 +96,7 @@ function ContentColumn({
         ) : (
           content.map((item, idx) => (
             <motion.div
-              key={item._id}
+              key={item.id}
               layout
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -133,11 +132,11 @@ function ContentColumn({
                       <span>{item.author}</span>
                     </div>
                   )}
-                  {item.scheduledFor && (
+                  {item.scheduled_for && (
                     <div className="flex items-center gap-1">
                       <Calendar className="w-3 h-3" />
                       <span>
-                        {new Date(item.scheduledFor).toLocaleDateString()}
+                        {new Date(item.scheduled_for).toLocaleDateString()}
                       </span>
                     </div>
                   )}

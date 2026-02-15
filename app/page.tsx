@@ -5,14 +5,12 @@ import {
   Activity,
   Bot,
   Clock,
-  DollarSign,
   FileText,
   TrendingUp,
   AlertCircle,
   CheckCircle,
 } from "lucide-react";
-import { useQuery } from "convex/react";
-import { api } from "@/convex/_generated/api";
+import { useActivities, useTasks, useContentDrafts } from "@/lib/supabase/hooks";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -41,13 +39,13 @@ const item = {
 };
 
 export default function HomePage() {
-  const activities = useQuery(api.activities.list, { limit: 5 });
-  const tasks = useQuery(api.tasks.list);
-  const contentDrafts = useQuery(api.content.list);
+  const activities = useActivities(5);
+  const tasks = useTasks();
+  const contentDrafts = useContentDrafts();
 
-  const activeTasks = tasks?.filter((t: any) => t.status !== "completed").length || 0;
-  const completedTasks = tasks?.filter((t: any) => t.status === "completed").length || 0;
-  const draftContent = contentDrafts?.filter((c: any) => c.status === "draft").length || 0;
+  const activeTasks = tasks?.filter((t) => t.status !== "completed").length || 0;
+  const completedTasks = tasks?.filter((t) => t.status === "completed").length || 0;
+  const draftContent = contentDrafts?.filter((c) => c.status === "draft").length || 0;
 
   return (
     <motion.div
@@ -119,9 +117,9 @@ export default function HomePage() {
                   <Skeleton className="h-16 w-full" />
                 </>
               ) : (
-                activities.map((activity: any, idx: number) => (
+                activities.map((activity, idx) => (
                   <motion.div
-                    key={activity._id}
+                    key={activity.id}
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: idx * 0.1 }}
